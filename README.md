@@ -25,7 +25,8 @@ Python 3.6 or later versions are recommended. The version of dependencies may va
 - [SciPy](https://pypi.org/project/scipy/)
 - [Matplotlib](https://pypi.org/project/matplotlib/)
 
-Make sure you have these dependencies installed before running the scripts.
+Make sure you have these dependencies installed before running the scripts.  
+Make sure you have *Awk* installed and can be used directly via command line.
 ## **Usage**
 Clone this repository to your local machine:
 ```bash
@@ -47,6 +48,13 @@ python hierarchy_clustering.py ocinput n_clusters method
 ```
 You may be able to customize *n_clusters* based on your demand. *method* includes single(min), complete(max), average(mean), centroid, median, ward. Please choose the one that you think is better for your case.  
 The results of HC will be cluster numbers alongside size and centroid id in your terminal. Meanwhile, you should be able to see a dendrogram produced in your current working directory.
-### **Dihedral angles**
-### **Residue-wise SS**
+### **Dihedral angle in Ramachandran plot**
+*dihedral_angles.ipynb* collects dihedral angles of example structures in directories crystal_stru and fibril_stru, and plot them in a Ramachandran plot. The notebook further computes structures of which PDB files contain massive frames and draws both scattered points and distribution densities.
+### **Residue-wise secondary structures**
+*RW_2ndcal_trj_mean.awk* script can rapidly calculate mean values and standard deviations of 4 types of secondary structure for each residue of proteins of interest extracted from DMD simulations. The script can run directly in the way of a one-liner command line.
+```bash
+gawk -f RW_2ndcal_trj_mean.awk -F"!" 30000 50 filename.dssp > SS_output.txt
+```
+"-F" is for the peptide separation; "30000" refers to the total frames of the simulation output. "50" denotes the number of simulation trajectories.
 ### **β-sheet layer distribution**
+*beta_layer.ipynb* is the notebook for the computation of β-sheet layer distribution, which requires raw data of cluster and DSSP complex analysis outputs. The function defined in the notebook can recognize the chain IDs of clusters formed during the simulation. Furthermore, the function can adjust cluster size according to the DSSP file, ensuring all chains adopt β-sheet conformations. Moreover, the function counts the number of β-sheets that are not connected to each other for each  β-sheet cluster and each frame. At the end of the day, it collects β-sheet layer information frame-by-frame for further stastical computation.
