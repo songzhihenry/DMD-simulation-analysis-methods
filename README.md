@@ -28,9 +28,9 @@ Python 3.6 or later versions are recommended. The version of dependencies may va
 Make sure you have these dependencies installed before running the scripts.
 ## **Usage**
 Clone this repository to your local machine:
-'''bash
+```bash
 git clone https://github.com/songzhihenry/DMD-simulation-analysis-method
-'''
+```
 ### **Clustering**
 The file *HC_on_ctm_with_label.ipynb* performs hierarchical clustering upon residue contacts, aiming to provide insight into protein-protein interaction.  
 *PW_RMSD.py* computes pair-wise RMSD of structures, of which paths should be listed in a file line by line.
