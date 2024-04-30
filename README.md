@@ -33,11 +33,20 @@ git clone https://github.com/songzhihenry/DMD-simulation-analysis-method
 ```
 ### **Clustering**
 The file *HC_on_ctm_with_label.ipynb* performs hierarchical clustering upon residue contacts, aiming to provide insight into protein-protein interaction.  
-*PW_RMSD.py* computes pair-wise RMSD of structures, of which paths should be listed in a file line by line.
+*PW_RMSD.py* computes pair-wise RMSD of structures, of which paths should be listed in a file line by line. The pair-wise RMSD result will be used for further clustering.
 ```bash
 python PW_RMSD.py pdb_list all output
 ```
-Herein, "all" refers to using all-atom positions for RMSD calculation. Alternatively, "BB" and "CA", denoting the calculation upon positions of backbone atoms and alpha-carbon, can be used to reduce the computational cost but lower accuracy.
+Herein, "all" refers to using all-atom positions for RMSD calculation. Alternatively, "BB" and "CA", denoting the calculation upon positions of backbone atoms and alpha carbon, can be used to reduce the computational costs but lower accuracy.
+```bash
+(echo "1000" && cat output) > ocinput
+```
+"1000" should be changed to the number of structures you would like to cluster. 
+```bash
+python hierarchy_clustering.py ocinput n_clusters method
+```
+You may be able to customize *n_clusters* based on your demand. *method* includes single(min), complete(max), average(mean), centroid, median, ward. Please choose the one that you think is better for your case.  
+The results of HC will be cluster numbers alongside size and centroid id in your terminal. Meanwhile, you should be able to see a dendrogram produced in your current working directory.
 ### **Dihedral angles**
 ### **Residue-wise SS**
 ### **β-sheet layer distribution**
