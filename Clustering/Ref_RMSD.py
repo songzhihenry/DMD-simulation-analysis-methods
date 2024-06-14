@@ -2,9 +2,10 @@ from Bio.SVDSuperimposer import SVDSuperimposer
 import numpy as np
 import argparse
 parser = argparse.ArgumentParser()
+parser.add_argument('ref_pdb',help='pdb structure as reference for rmsd')
 parser.add_argument('pdb_list',help='pdb list file needed')
 parser.add_argument('BB',help='All Atoms, Backbone atoms, or CA, input keywords: "All", "BB", or "CA"')
-parser.add_argument('pw_rmsd',help='output file name')
+parser.add_argument('ref_rmsd',help='output file name')
 args = parser.parse_args()
 # Type functions because it's helpful.
 def get_coords(data):
@@ -29,10 +30,9 @@ def align(native_coords, model_coords):
     return si.get_rms()
 pdb_list = [line.strip('\n') for line in open(f'{args.pdb_list}')]
 all_coords = read_list(pdb_list)
-
-f = open(f'{args.pw_rmsd}.txt',"w")
-for i,native_coords in enumerate(all_coords[:-1]):
-    for model_coords in all_coords[i+1:]:
-        f.write('{}'.format(align(np.array(native_coords),np.array(model_coords))))
-        f.write('\n')
+native_coords = get_coords(open(f'{args.ref_pdb}'))
+f = open(f'{args.ref_rmsd}.txt',"w")
+for model_coords in all_coords:
+    f.write('{}'.format(align(np.array(native_coords),np.array(model_coords))))
+    f.write('\n')
 f.close()

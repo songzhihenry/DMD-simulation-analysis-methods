@@ -33,12 +33,18 @@ Clone this repository to your local machine:
 git clone https://github.com/songzhihenry/DMD-simulation-analysis-method
 ```
 ### **Clustering**
+*Ref_RMSD.py* computes RMSD of structures to a reference structure (e.g., native structure).
+```bash
+python Ref_RMSD.py ref_pdb pdb_list all output
+```
+Herein, "ref_pdb" refers to the structure as the referecne. "pdb_list" should be a path to a file that includes pdb structures that you would like to compute RMSD for. "all" refers to using all-atom positions for RMSD calculation. Alternatively, "BB" and "CA", denoting the calculation upon positions of backbone atoms and alpha carbon, can be used to reduce the computational costs but lower accuracy.  
+
 The file *HC_on_ctm_with_label.ipynb* performs hierarchical clustering upon residue contacts, aiming to provide insight into protein-protein interaction.  
-*PW_RMSD.py* computes pair-wise RMSD of structures, of which paths should be listed in a file line by line. The pair-wise RMSD result will be used for further clustering.
+*PW_RMSD.py* computes pair-wise RMSD of structures, of which paths should be listed in a file line by line. The pair-wise RMSD result will be used for further clustering.  
 ```bash
 python PW_RMSD.py pdb_list all output
 ```
-Herein, "all" refers to using all-atom positions for RMSD calculation. Alternatively, "BB" and "CA", denoting the calculation upon positions of backbone atoms and alpha carbon, can be used to reduce the computational costs but lower accuracy.
+Herein, "ref_pdb" refers to the structure as the referecne. "pdb_list" should be a path to a file that includes pdb structures that you would like to compute RMSD for. "all" refers to using all-atom positions for RMSD calculation. Alternatively, "BB" and "CA", denoting the calculation upon positions of backbone atoms and alpha carbon, can be used to reduce the computational costs but lower accuracy.
 ```bash
 (echo "1000" && cat output) > ocinput
 ```
